@@ -35,9 +35,15 @@
                 </div>
                 <span class="text-xs uppercase font-bold tracking-widest text-indigo-400">Winning Destination</span>
                 <h2 id="winnerText" class="text-4xl font-black mt-2 mb-6 text-white tracking-tight">Hong Kong</h2>
-                <button onclick="closeModal()" class="w-full py-3.5 px-6 bg-gradient-to-r from-rose-500 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all transform active:scale-95">
-                    Let's buy tickets
-                </button>
+                <div class="space-y-3">
+                    <button id="buyTicketBtn" onclick="handleBuyTickets()" class="w-full py-3.5 px-6 bg-gradient-to-r from-rose-500 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all transform active:scale-95 flex items-center justify-center gap-2">
+                        <span>Let's buy tickets</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </button>
+                    <button onclick="closeModal()" class="w-full py-2.5 px-6 bg-slate-700/60 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl transition-all text-sm">
+                        Spin Again
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -206,6 +212,19 @@
             modal.classList.remove('opacity-0', 'pointer-events-none');
             modalContent.classList.remove('scale-95');
             modalContent.classList.add('scale-100');
+        }
+
+        function handleBuyTickets() {
+            const winnerText = document.getElementById('winnerText').textContent.trim();
+            let flightUrl = '';
+
+            if (winnerText.toLowerCase().includes('hong kong')) {
+                flightUrl = 'https://www.airasia.com/v2/flights/search/?origin=BKK&destination=HKG&departDate=21%2F02%2F2027&tripType=R&adult=2&child=0&infant=0&locale=en-gb&currency=THB&ule=false&cabinClass=economy&uce=false&ancillaryAbTest=false&isOC=false&isDC=true&type=paired&upsellWidget=false&upsellPremiumFlatbedWidget=false&upsellFlightBusWidget=false&returnDate=24%2F02%2F2027';
+            } else {
+                flightUrl = 'https://www.airasia.com/v2/flights/search/?origin=BKK&destination=PUS&departDate=21%2F02%2F2027&tripType=R&adult=2&child=0&infant=0&locale=en-gb&currency=THB&ule=false&cabinClass=economy&uce=false&ancillaryAbTest=false&isOC=false&isDC=false&type=paired&upsellWidget=false&upsellPremiumFlatbedWidget=false&upsellFlightBusWidget=false&returnDate=24%2F02%2F2027';
+            }
+
+            window.open(flightUrl, '_blank');
         }
 
         function closeModal() {
